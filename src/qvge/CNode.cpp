@@ -15,6 +15,7 @@
 ////////////////////////////////////////////////////////////////////
 /// \brief CNode::CNode
 
+//WPaw - konstruktor Node
 CNode::CNode(QGraphicsItem* parent) : QGraphicsRectItem(parent) 
 {
 	// no selection frame

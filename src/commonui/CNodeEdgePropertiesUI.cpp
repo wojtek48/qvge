@@ -38,6 +38,7 @@ CNodeEdgePropertiesUI::CNodeEdgePropertiesUI(QWidget *parent) :
     ui->NodeColor->setColorScheme(QSint::OpenOfficeColors());
 	ui->NodeColor->enableNoColor(true);
 
+    //WPaw
     ui->NodeShape->addAction(QIcon(":/Icons/Node-Disc"), tr("Disc"), "disc");
     ui->NodeShape->addAction(QIcon(":/Icons/Node-Square"), tr("Square"), "square");
     ui->NodeShape->addAction(QIcon(":/Icons/Node-Triangle"), tr("Triangle Up"), "triangle");

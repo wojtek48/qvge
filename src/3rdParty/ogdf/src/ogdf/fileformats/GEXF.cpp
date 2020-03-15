@@ -51,6 +51,7 @@ std::string toString(const Shape &shape)
 }
 
 
+//WPaw
 Shape toShape(const std::string &str)
 {
 	if(str == "square") {

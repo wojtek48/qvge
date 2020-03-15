@@ -427,6 +427,7 @@ CNode* CNodeEditorScene::createNewNode() const
 }
 
 
+//WPaw
 CNode* CNodeEditorScene::createNewNode(const QPointF& pos)
 {
 	auto node = createNewNode();
