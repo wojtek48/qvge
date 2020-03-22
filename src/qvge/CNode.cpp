@@ -138,6 +138,7 @@ bool CNode::hasLocalAttribute(const QByteArray& attrId) const
 }
 
 
+//WPaw - ustawianie atrybutów, można tu ustawić
 bool CNode::setAttribute(const QByteArray& attrId, const QVariant& v)
 {
 	setItemStateFlag(IS_Attribute_Changed);
@@ -694,10 +695,10 @@ void CNode::updateConnections()
 
 void CNode::onConnectionDeleted(CEdge *conn)
 {
-	onConnectionDetach(conn);
+    onConnectionDetach(conn);
 
-	// remove orphan node if allowed
-	if (m_connections.isEmpty() && !(m_nodeFlags & NF_OrphanAllowed))
+    // remove orphan node if allowed
+    if (m_connections.isEmpty() && !(m_nodeFlags & NF_OrphanAllowed))
 		delete this;
 }
 
@@ -818,9 +819,10 @@ QVariant CNode::itemChange(QGraphicsItem::GraphicsItemChange change, const QVari
 }
 
 
+//WPaw - rysowanie nodów
 void CNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget*)
 {
-	bool isSelected = (option->state & QStyle::State_Selected);
+    /*bool isSelected = (option->state & QStyle::State_Selected);
 
 	painter->setClipRect(boundingRect());
 
@@ -837,44 +839,47 @@ void CNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
 
 	QColor strokeColor = getAttribute(QByteArrayLiteral("stroke.color")).value<QColor>();
 
-	int strokeStyle = CUtils::textToPenStyle(getAttribute(QByteArrayLiteral("stroke.style")).toString(), Qt::SolidLine);
+  int strokeStyle = CUtils::t*/
+    //extToPenStyle(getAttribute(QByteArrayLiteral("stroke.style")).toString(), Qt::SolidLine);
 
 	// selection background outline
-	if (isSelected)
-	{
-		painter->setPen(QPen(Qt::darkCyan, strokeSize+5, Qt::SolidLine, Qt::FlatCap, Qt::RoundJoin));
-		painter->setOpacity(0.3);
+//	if (isSelected)
+//	{
+//		painter->setPen(QPen(Qt::darkCyan, strokeSize+5, Qt::SolidLine, Qt::FlatCap, Qt::RoundJoin));
+//		painter->setOpacity(0.3);
 
 		// draw shape: disc if no cache
-		if (m_shapeCache.isEmpty())
-		{
-			QRectF r = Shape::boundingRect();
-			painter->drawEllipse(r);
-		}
-		else
-		{
-			painter->drawPolygon(m_shapeCache);
-		}
-	}
+////		if (m_shapeCache.isEmpty())
+//		{
+//			QRectF r = Shape::boundingRect();
+//			painter->drawEllipse(r);
+//		}
+//		else
+//		{
+//			painter->drawPolygon(m_shapeCache);
+//		}
+        QRectF r = Shape::boundingRect();
+        painter->drawImage(r, QImage(":/Icons/Icons/komponenty/bankDanych.PNG"));
+//	}
 	
-	// hover opacity
-	if (itemStateFlags() & IS_Drag_Accepted)
-		painter->setOpacity(0.6);
-	else
-		painter->setOpacity(1.0);
+//	// hover opacity
+//	if (itemStateFlags() & IS_Drag_Accepted)
+//		painter->setOpacity(0.6);
+//	else
+//		painter->setOpacity(1.0);
 
-	painter->setPen(QPen(strokeColor, strokeSize, (Qt::PenStyle)strokeStyle));
+//	painter->setPen(QPen(strokeColor, strokeSize, (Qt::PenStyle)strokeStyle));
 
-	// draw shape: disc if no cache
-	if (m_shapeCache.isEmpty())
-	{
-		QRectF r = Shape::boundingRect();
-		painter->drawEllipse(r);
-	}
-	else
-	{
-		painter->drawPolygon(m_shapeCache);
-	}
+//	// draw shape: disc if no cache
+//	if (m_shapeCache.isEmpty())
+//	{
+//		QRectF r = Shape::boundingRect();
+//		painter->drawEllipse(r);
+//	}
+//	else
+//	{
+//		painter->drawPolygon(m_shapeCache);
+//	}
 }
 
 

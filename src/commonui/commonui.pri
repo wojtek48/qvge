@@ -3,6 +3,7 @@ include($$PWD/../config.pri)
 
 # app sources
 SOURCES += $$files($$PWD/*.cpp)
+SOURCES += $$files($$PWD/Źródła/*.cpp)
 HEADERS += $$files($$PWD/*.h)
 FORMS += $$files($$PWD/*.ui)
 RESOURCES += $$files($$PWD/*.qrc)
@@ -23,3 +24,15 @@ USE_OGDF{
     HEADERS += $$files($$PWD/ogdf/*.h)
     FORMS += $$files($$PWD/ogdf/*.ui)
 }
+
+DISTFILES += \
+    $$PWD/Icons/komponenty/bankDanych.PNG \
+    $$PWD/Icons/komponenty/celZasobu.PNG \
+    $$PWD/Icons/komponenty/generatorZdarzen.PNG \
+    $$PWD/Icons/komponenty/kompPrzeplywu.PNG \
+    $$PWD/Icons/komponenty/kompPrzetwarzania.PNG \
+    $$PWD/Icons/komponenty/kompUniwersalny.PNG \
+    $$PWD/Icons/komponenty/kompWymuszPrzeplyw.PNG \
+    $$PWD/Icons/komponenty/procedury.PNG \
+    $$PWD/Icons/komponenty/zasobStatyczny.PNG \
+    $$PWD/Icons/komponenty/zrodloZasobu.PNG

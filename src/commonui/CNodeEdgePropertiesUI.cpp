@@ -35,18 +35,21 @@ CNodeEdgePropertiesUI::CNodeEdgePropertiesUI(QWidget *parent) :
 
     ui->setupUi(this);
 
-    ui->NodeColor->setColorScheme(QSint::OpenOfficeColors());
-	ui->NodeColor->enableNoColor(true);
-
     //WPaw
-    ui->NodeShape->addAction(QIcon(":/Icons/Node-Disc"), tr("Disc"), "disc");
-    ui->NodeShape->addAction(QIcon(":/Icons/Node-Square"), tr("Square"), "square");
-    ui->NodeShape->addAction(QIcon(":/Icons/Node-Triangle"), tr("Triangle Up"), "triangle");
-    ui->NodeShape->addAction(QIcon(":/Icons/Node-Diamond"), tr("Diamond"), "diamond");
-    ui->NodeShape->addAction(QIcon(":/Icons/Node-Triangle-Down"), tr("Triangle Down"), "triangle2");
-	ui->NodeShape->addAction(QIcon(":/Icons/Node-Hexagon"), tr("Hexagon"), "hexagon");
+//    ui->NodeShape->addAction(QIcon(":/Icons/Node-Disc"), tr("Disc"), "disc");
+//    ui->NodeShape->addAction(QIcon(":/Icons/Node-Square"), tr("Square"), "square");
+//    ui->NodeShape->addAction(QIcon(":/Icons/Node-Triangle"), tr("Triangle Up"), "triangle");
+//    ui->NodeShape->addAction(QIcon(":/Icons/Node-Diamond"), tr("Diamond"), "diamond");
+//    ui->NodeShape->addAction(QIcon(":/Icons/Node-Triangle-Down"), tr("Triangle Down"), "triangle2");
+//	ui->NodeShape->addAction(QIcon(":/Icons/Node-Hexagon"), tr("Hexagon"), "hexagon");
 
-    ui->NodeAttrBox->setChecked(false);
+    ui->NodeShape->addAction(QIcon(":/Icons/Icons/komponenty/bankDanych.PNG"), tr("Bank danych"), "bank danych");
+//    ui->NodeShape->addAction(QIcon(":/Icons/Node-Square"), tr("Square"), "square");
+//    ui->NodeShape->addAction(QIcon(":/Icons/Node-Triangle"), tr("Triangle Up"), "triangle");
+//    ui->NodeShape->addAction(QIcon(":/Icons/Node-Diamond"), tr("Diamond"), "diamond");
+//    ui->NodeShape->addAction(QIcon(":/Icons/Node-Triangle-Down"), tr("Triangle Down"), "triangle2");
+//	ui->NodeShape->addAction(QIcon(":/Icons/Node-Hexagon"), tr("Hexagon"), "hexagon");
+
 
 
 	ui->EdgeDirection->addAction(QIcon(":/Icons/Edge-Directed"), tr("Directed (one end)"), "directed");
@@ -56,7 +59,6 @@ CNodeEdgePropertiesUI::CNodeEdgePropertiesUI(QWidget *parent) :
     ui->EdgeColor->setColorScheme(QSint::OpenOfficeColors());
 
     ui->EdgeStyle->setUsedRange(Qt::SolidLine, Qt::DashDotDotLine);
-	ui->StrokeStyle->setUsedRange(Qt::SolidLine, Qt::DashDotDotLine);
 
     ui->EdgeAttrBox->setChecked(false);
 
@@ -69,7 +71,6 @@ CNodeEdgePropertiesUI::CNodeEdgePropertiesUI(QWidget *parent) :
 	// node size
 	QList<int> nodeSizes = { 5,10,15,20,30,40,50,75,100,150,200 };
 	ui->NodeSizeX->setValueList(nodeSizes);
-	ui->NodeSizeY->setValueList(nodeSizes);
 
 
     // update status & tooltips etc.
@@ -87,8 +88,6 @@ CNodeEdgePropertiesUI::~CNodeEdgePropertiesUI()
 void CNodeEdgePropertiesUI::doReadSettings(QSettings& settings)
 {
 	int pos = settings.value("nodes/splitterPosition", -1).toInt();
-	if (pos >= 0)
-		ui->NodeAttrEditor->getEditor()->setSplitterPosition(pos);
 
 	/*int*/ pos = settings.value("edges/splitterPosition", -1).toInt();
 	if (pos >= 0)
@@ -98,7 +97,6 @@ void CNodeEdgePropertiesUI::doReadSettings(QSettings& settings)
 
 void CNodeEdgePropertiesUI::doWriteSettings(QSettings& settings)
 {
-	settings.setValue("nodes/splitterPosition", ui->NodeAttrEditor->getEditor()->splitterPosition());
 	settings.setValue("edges/splitterPosition", ui->EdgeAttrEditor->getEditor()->splitterPosition());
 }
 
@@ -128,18 +126,11 @@ void CNodeEdgePropertiesUI::updateFromScene(CEditorScene* scene)
 {
 	// default attrs
 	auto nodeAttrs = scene->getClassAttributes("node", false);
-	ui->NodeColor->setColor(nodeAttrs["color"].defaultValue.value<QColor>());
 	ui->NodeShape->selectAction(nodeAttrs["shape"].defaultValue);
 
 	QSize size = nodeAttrs["size"].defaultValue.toSize();
-	ui->NodeSizeSwitch->setChecked(size.width() == size.height());
-	ui->NodeSizeY->setVisible(size.width() != size.height());
 	ui->NodeSizeX->setValue(size.width());
-	ui->NodeSizeY->setValue(size.height());
 
-	ui->StrokeColor->setColor(nodeAttrs["stroke.color"].defaultValue.value<QColor>());
-	ui->StrokeStyle->setPenStyle(CUtils::textToPenStyle(nodeAttrs["stroke.style"].defaultValue.toString()));
-	ui->StrokeSize->setValue(nodeAttrs["stroke.size"].defaultValue.toDouble());
 
 	auto edgeAttrs = scene->getClassAttributes("edge", false);
 	ui->EdgeColor->setColor(edgeAttrs["color"].defaultValue.value<QColor>());
@@ -201,26 +192,14 @@ void CNodeEdgePropertiesUI::onSelectionChanged()
     {
         auto node = nodes.first();
 
-        ui->NodeColor->setColor(node->getAttribute("color").value<QColor>());
         ui->NodeShape->selectAction(node->getAttribute("shape"));
 		
 		QSize size = node->getAttribute("size").toSize();
-		ui->NodeSizeSwitch->setChecked(size.width() == size.height());
-		ui->NodeSizeY->setVisible(size.width() != size.height());
 		ui->NodeSizeX->setValue(size.width());
-		ui->NodeSizeY->setValue(size.height());
 
-		ui->StrokeColor->setColor(node->getAttribute("stroke.color").value<QColor>());
-		ui->StrokeStyle->setPenStyle(CUtils::textToPenStyle(node->getAttribute("stroke.style").toString()));
-		ui->StrokeSize->setValue(node->getAttribute("stroke.size").toDouble());
     }
 
     QList<CItem*> nodeItems;
-    for (auto item: nodes) nodeItems << item;
-    int attrCount = ui->NodeAttrEditor->setupFromItems(*m_scene, nodeItems);
-	ui->NodeAttrBox->setTitle(tr("Custom Attributes (%1)").arg(attrCount));
-
-
     // edges
     ui->EdgesBox->setTitle(tr("Edges (%1)").arg(edges.count()));
 
@@ -236,8 +215,6 @@ void CNodeEdgePropertiesUI::onSelectionChanged()
 
     QList<CItem*> edgeItems;
     for (auto item: edges) edgeItems << item;
-	attrCount = ui->EdgeAttrEditor->setupFromItems(*m_scene, edgeItems);
-	ui->EdgeAttrBox->setTitle(tr("Custom Attributes (%1)").arg(attrCount));
 
 
     // labels
@@ -314,39 +291,13 @@ void CNodeEdgePropertiesUI::on_NodeShape_activated(QVariant data)
 void CNodeEdgePropertiesUI::on_NodeSizeX_valueChanged(int /*value*/)
 {
 	ui->NodeSizeX->blockSignals(true);
-	ui->NodeSizeY->blockSignals(true);
 
-	if (ui->NodeSizeSwitch->isChecked())
-		ui->NodeSizeY->setValue(ui->NodeSizeX->value());
-
-	QSize size(ui->NodeSizeX->value(), ui->NodeSizeY->value());
+    QSize size(ui->NodeSizeX->value(), ui->NodeSizeX->value());
 
 	setNodesAttribute("size", size);
 
  	ui->NodeSizeX->blockSignals(false);
-	ui->NodeSizeY->blockSignals(false);
 }
-
-
-void CNodeEdgePropertiesUI::on_NodeSizeY_valueChanged(int value)
-{
-	on_NodeSizeX_valueChanged(value);
-}
-
-
-void CNodeEdgePropertiesUI::on_NodeSizeSwitch_toggled(bool on)
-{
-	ui->NodeSizeY->setVisible(!on);
-
-	if (on)
-	{
-		ui->NodeSizeY->setValue(ui->NodeSizeX->value());
-		//ui->NodeSizeX->setFocus();
-	}
-	//else
-	//	ui->NodeSizeY->setFocus();
-}
-
 
 void CNodeEdgePropertiesUI::on_StrokeColor_activated(const QColor &color)
 {
@@ -540,3 +491,5 @@ void CNodeEdgePropertiesUI::on_LabelFontUnderline_toggled(bool on)
 	if (set)
 		m_scene->addUndoState();
 }
+
+

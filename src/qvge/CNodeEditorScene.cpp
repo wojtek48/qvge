@@ -222,7 +222,8 @@ void CNodeEditorScene::initialize()
     CAttribute shapeAttr("shape", "Shape", "disc");
 	setClassAttribute("node", shapeAttr);
 
-	createClassAttribute("node", "size", "Size", QSizeF(11.0, 11.0));
+    //WPaw - ustawianie defaultowych wartości
+    createClassAttribute("node", "size", "Size", QSizeF(40.0, 40.0));
 
 	createClassAttribute("node", "stroke.style", "Stroke Style", "solid");
 	setClassAttributeConstrains("node", "stroke.style", edgeStyles);

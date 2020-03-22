@@ -26,12 +26,19 @@ enum NodeFlags
 	NF_OrphanAllowed = 1	// allow node to have no connections
 };
 
+enum NodeType{
+   BankDanych,
+   CosInnego
+};
+
+
 
 class CNode : public CItem, public QGraphicsRectItem
 {
 public:
 	typedef CItem Super;
 	typedef QGraphicsRectItem Shape;
+
 
 	CNode(QGraphicsItem* parent = NULL);
 	virtual ~CNode();
@@ -121,9 +128,12 @@ public:
 	// reimp 
 	virtual QRectF boundingRect() const;
 
+    NodeType getNodeType() const {return m_nodeType;};
+    void setNodeType(const NodeType &nodeType){m_nodeType = nodeType;};
+
 protected:
-	// reimp 
-	virtual QVariant itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value);
+    // reimp
+    virtual QVariant itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value);
 	virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = Q_NULLPTR);
 	virtual void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
 	virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent *event); 
@@ -143,12 +153,15 @@ private:
 protected:
 	QSet<CEdge*> m_connections;
 	int m_nodeFlags;
+    NodeType m_nodeType;
+
 
 	QMap<QByteArray, CNodePort*> m_ports;
 
 	QPolygonF m_shapeCache;
 	QRectF m_sizeCache;
 };
+
 
 
 

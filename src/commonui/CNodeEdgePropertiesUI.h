@@ -52,8 +52,6 @@ protected Q_SLOTS:
     void on_NodeColor_activated(const QColor &color);
     void on_NodeShape_activated(QVariant data);
     void on_NodeSizeX_valueChanged(int value);
-	void on_NodeSizeY_valueChanged(int value);
-	void on_NodeSizeSwitch_toggled(bool on);
 	void on_StrokeColor_activated(const QColor &color);
 	void on_StrokeStyle_activated(QVariant data);
 	void on_StrokeSize_valueChanged(double value);
