@@ -201,6 +201,7 @@ bool CNodeEditorScene::toGraph(Graph& g)
 
 // reimp
 
+//Wpaw - domyślne wartości
 void CNodeEditorScene::initialize()
 {
 	Super::initialize();

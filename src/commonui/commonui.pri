@@ -4,7 +4,8 @@ include($$PWD/../config.pri)
 # app sources
 SOURCES += $$files($$PWD/*.cpp)
 SOURCES += $$files($$PWD/Źródła/*.cpp)
-HEADERS += $$files($$PWD/*.h)
+HEADERS += $$files($$PWD/*.h) \
+    $$PWD/Const.h
 FORMS += $$files($$PWD/*.ui)
 RESOURCES += $$files($$PWD/*.qrc)
 

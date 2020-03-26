@@ -822,70 +822,71 @@ QVariant CNode::itemChange(QGraphicsItem::GraphicsItemChange change, const QVari
 //WPaw - rysowanie nodów
 void CNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget*)
 {
-    /*bool isSelected = (option->state & QStyle::State_Selected);
+    QByteArray shapeType = getAttribute("shape").toByteArray();
+//    bool isSelected = (option->state & QStyle::State_Selected);
 
-	painter->setClipRect(boundingRect());
+//    painter->setClipRect(boundingRect());
 
 
-	// get color (to optimize!)
-	QColor color = getAttribute(QByteArrayLiteral("color")).value<QColor>();
-	if (color.isValid())
-		painter->setBrush(color);
-	else
-		painter->setBrush(Qt::NoBrush);
+//    // get color (to optimize!)
+//    QColor color = getAttribute(QByteArrayLiteral("color")).value<QColor>();
+//    if (color.isValid())
+//        painter->setBrush(color);
+//    else
+//        painter->setBrush(Qt::NoBrush);
 
-	qreal strokeSize = getAttribute(QByteArrayLiteral("stroke.size")).toDouble();
-	strokeSize = qMax(0.1, strokeSize);
+//    qreal strokeSize = getAttribute(QByteArrayLiteral("stroke.size")).toDouble();
+//    strokeSize = qMax(0.1, strokeSize);
 
-	QColor strokeColor = getAttribute(QByteArrayLiteral("stroke.color")).value<QColor>();
+//    QColor strokeColor = getAttribute(QByteArrayLiteral("stroke.color")).value<QColor>();
 
-  int strokeStyle = CUtils::t*/
-    //extToPenStyle(getAttribute(QByteArrayLiteral("stroke.style")).toString(), Qt::SolidLine);
+//  int strokeStyle = CUtils::t
+//    extToPenStyle(getAttribute(QByteArrayLiteral("stroke.style")).toString(), Qt::SolidLine);
 
-	// selection background outline
-//	if (isSelected)
-//	{
-//		painter->setPen(QPen(Qt::darkCyan, strokeSize+5, Qt::SolidLine, Qt::FlatCap, Qt::RoundJoin));
-//		painter->setOpacity(0.3);
+//     selection background outline
+//    if (isSelected)
+//    {
+//        painter->setPen(QPen(Qt::darkCyan, strokeSize+5, Qt::SolidLine, Qt::FlatCap, Qt::RoundJoin));
+//        painter->setOpacity(0.3);
 
-		// draw shape: disc if no cache
-////		if (m_shapeCache.isEmpty())
-//		{
-//			QRectF r = Shape::boundingRect();
-//			painter->drawEllipse(r);
-//		}
-//		else
-//		{
-//			painter->drawPolygon(m_shapeCache);
-//		}
+//         draw shape: disc if no cache
+//        if (m_shapeCache.isEmpty())
+//        {
+//            QRectF r = Shape::boundingRect();
+//            painter->drawEllipse(r);
+//        }
+//        else
+//        {
+//            painter->drawPolygon(m_shapeCache);
+//        }
         QRectF r = Shape::boundingRect();
         painter->drawImage(r, QImage(":/Icons/Icons/komponenty/bankDanych.PNG"));
-//	}
+//    }
 	
-//	// hover opacity
-//	if (itemStateFlags() & IS_Drag_Accepted)
-//		painter->setOpacity(0.6);
-//	else
-//		painter->setOpacity(1.0);
+////	// hover opacity
+//    if (itemStateFlags() & IS_Drag_Accepted)
+//        painter->setOpacity(0.6);
+//    else
+//        painter->setOpacity(1.0);
 
-//	painter->setPen(QPen(strokeColor, strokeSize, (Qt::PenStyle)strokeStyle));
+//    painter->setPen(QPen(strokeColor, strokeSize, (Qt::PenStyle)strokeStyle));
 
-//	// draw shape: disc if no cache
-//	if (m_shapeCache.isEmpty())
-//	{
-//		QRectF r = Shape::boundingRect();
-//		painter->drawEllipse(r);
-//	}
-//	else
-//	{
-//		painter->drawPolygon(m_shapeCache);
-//	}
+//    // draw shape: disc if no cache
+//    if (m_shapeCache.isEmpty())
+//    {
+//        QRectF r = Shape::boundingRect();
+//        painter->drawEllipse(r);
+//    }
+//    else
+//    {
+//        painter->drawPolygon(m_shapeCache);
+//    }
 }
 
 
 QRectF CNode::boundingRect() const
 {
-	QRectF r = Shape::boundingRect();
+    QRectF r = Shape::boundingRect();
 
 	// in case of bold selection
 	if (auto scene = getScene())
@@ -955,7 +956,7 @@ void CNode::updateLabelPosition()
 
 
 // priv
-
+//Wpaw - wpisywanie akt. shape do cache
 void CNode::recalculateShape()
 {
 	QSizeF sz = getAttribute("size").toSizeF();

@@ -50,12 +50,12 @@ protected Q_SLOTS:
     void onSelectionChanged();
 
     void on_NodeColor_activated(const QColor &color);
-    void on_NodeShape_activated(QVariant data);
+    void on_NodeFlowShape_activated(QVariant data);
+    void on_NodeProcShape_activated(QVariant data);
     void on_NodeSizeX_valueChanged(int value);
 	void on_StrokeColor_activated(const QColor &color);
 	void on_StrokeStyle_activated(QVariant data);
 	void on_StrokeSize_valueChanged(double value);
-
     void on_EdgeColor_activated(const QColor &color);
     void on_EdgeWeight_valueChanged(double value);
     void on_EdgeStyle_activated(QVariant data);

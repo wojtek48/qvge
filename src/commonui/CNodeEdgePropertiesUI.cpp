@@ -21,6 +21,7 @@ It can be used freely, maintaining the information above.
 #include <qvge/CDirectEdge.h>
 #include <qvge/CAttribute.h>
 #include <qvge/CEditorSceneDefines.h>
+#include <Const.h>
 
 
 CNodeEdgePropertiesUI::CNodeEdgePropertiesUI(QWidget *parent) :
@@ -37,18 +38,27 @@ CNodeEdgePropertiesUI::CNodeEdgePropertiesUI(QWidget *parent) :
 
     //WPaw
 //    ui->NodeShape->addAction(QIcon(":/Icons/Node-Disc"), tr("Disc"), "disc");
-//    ui->NodeShape->addAction(QIcon(":/Icons/Node-Square"), tr("Square"), "square");
+ //  ui->NodeShape->addAction(QIcon(":/Icons/Node-Square"), tr("Square"), "square");
 //    ui->NodeShape->addAction(QIcon(":/Icons/Node-Triangle"), tr("Triangle Up"), "triangle");
-//    ui->NodeShape->addAction(QIcon(":/Icons/Node-Diamond"), tr("Diamond"), "diamond");
+//   ui->NodeShape->addAction(QIcon(":/Icons/Node-Diamond"), tr("Diamond"), "diamond");
 //    ui->NodeShape->addAction(QIcon(":/Icons/Node-Triangle-Down"), tr("Triangle Down"), "triangle2");
 //	ui->NodeShape->addAction(QIcon(":/Icons/Node-Hexagon"), tr("Hexagon"), "hexagon");
 
-    ui->NodeShape->addAction(QIcon(":/Icons/Icons/komponenty/bankDanych.PNG"), tr("Bank danych"), "bank danych");
-//    ui->NodeShape->addAction(QIcon(":/Icons/Node-Square"), tr("Square"), "square");
-//    ui->NodeShape->addAction(QIcon(":/Icons/Node-Triangle"), tr("Triangle Up"), "triangle");
-//    ui->NodeShape->addAction(QIcon(":/Icons/Node-Diamond"), tr("Diamond"), "diamond");
-//    ui->NodeShape->addAction(QIcon(":/Icons/Node-Triangle-Down"), tr("Triangle Down"), "triangle2");
-//	ui->NodeShape->addAction(QIcon(":/Icons/Node-Hexagon"), tr("Hexagon"), "hexagon");
+    ui->NodeProcShape->addAction(QIcon(":/Icons/Icons/komponenty/bankDanych.PNG"), cBankDanych, cBankDanych);
+    ui->NodeProcShape->addAction(QIcon(":/Icons/Icons/komponenty/harmonogram.PNG"), cHarmonogram, cHarmonogram);
+    ui->NodeProcShape->addAction(QIcon(":/Icons/Icons/komponenty/generatorZdarzen.PNG"), cGeneratorZdarzen, cGeneratorZdarzen);
+    ui->NodeProcShape->addAction(QIcon(":/Icons/Icons/komponenty/procedury.PNG"), cProcedury, cProcedury);
+    ui->NodeProcShape->addAction(QIcon(":/Icons/Icons/komponenty/zasobStatyczny.PNG"), cZasobStatyczny, cZasobStatyczny);
+    ui->NodeProcShape->addAction(QIcon(":/Icons/Icons/komponenty/zegar.PNG"), cZegar, cZegar);
+
+    ui->NodeFlowShape->addAction(QIcon(":/Icons/Icons/komponenty/kompUniwersalny.PNG"), cKompUniwersalny, cKompUniwersalny);
+    ui->NodeFlowShape->addAction(QIcon(":/Icons/Icons/komponenty/kompPrzetwarzenia.PNG"), cKompPrzetwarzania, cKompPrzetwarzania);
+    ui->NodeFlowShape->addAction(QIcon(":/Icons/Icons/komponenty/kompPrzeplywu.PNG"), cKompPrzeplywu, cKompPrzeplywu);
+    ui->NodeFlowShape->addAction(QIcon(":/Icons/Icons/komponenty/kompWymuszPrzeplyw.PNG"), cKompWymuszPrzeplywu, cKompWymuszPrzeplywu);
+    ui->NodeFlowShape->addAction(QIcon(":/Icons/Icons/komponenty/zrodloZasobu.PNG"), cZrodloZasobu, cZrodloZasobu);
+    ui->NodeFlowShape->addAction(QIcon(":/Icons/Icons/komponenty/celZasobu.PNG"), cCelZasobu, cCelZasobu);
+
+
 
 
 
@@ -126,7 +136,7 @@ void CNodeEdgePropertiesUI::updateFromScene(CEditorScene* scene)
 {
 	// default attrs
 	auto nodeAttrs = scene->getClassAttributes("node", false);
-	ui->NodeShape->selectAction(nodeAttrs["shape"].defaultValue);
+    ui->NodeFlowShape->selectAction(nodeAttrs["shape"].defaultValue);
 
 	QSize size = nodeAttrs["size"].defaultValue.toSize();
 	ui->NodeSizeX->setValue(size.width());
@@ -192,7 +202,7 @@ void CNodeEdgePropertiesUI::onSelectionChanged()
     {
         auto node = nodes.first();
 
-        ui->NodeShape->selectAction(node->getAttribute("shape"));
+        ui->NodeFlowShape->selectAction(node->getAttribute("shape"));
 		
 		QSize size = node->getAttribute("size").toSize();
 		ui->NodeSizeX->setValue(size.width());
@@ -250,6 +260,7 @@ void CNodeEdgePropertiesUI::setNodesAttribute(const QByteArray& attrId, const QV
 	if (nodes.isEmpty())
 		return;
 
+    //WPaw - tu ustawia się atrybut dla konkretnego noda   
 	for (auto node : nodes)
 		node->setAttribute(attrId, v);
 
@@ -282,9 +293,14 @@ void CNodeEdgePropertiesUI::on_NodeColor_activated(const QColor &color)
 }
 
 
-void CNodeEdgePropertiesUI::on_NodeShape_activated(QVariant data)
+void CNodeEdgePropertiesUI::on_NodeFlowShape_activated(QVariant data)
 {
 	setNodesAttribute("shape", data);
+}
+
+void CNodeEdgePropertiesUI::on_NodeProcShape_activated(QVariant data)
+{
+    setNodesAttribute("shape", data);
 }
 
 
