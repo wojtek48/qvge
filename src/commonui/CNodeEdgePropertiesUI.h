@@ -68,6 +68,9 @@ protected Q_SLOTS:
 	void on_LabelFontItalic_toggled(bool on);
 	void on_LabelFontUnderline_toggled(bool on);
 
+private slots:
+    void on_NodeFlowShape_windowIconChanged(const QIcon &icon);
+
 private:
 	void setNodesAttribute(const QByteArray& attrId, const QVariant& v);
 	void setEdgesAttribute(const QByteArray& attrId, const QVariant& v);

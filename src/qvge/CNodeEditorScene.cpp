@@ -17,6 +17,7 @@
 #include <QApplication>
 #include <QDebug>
 #include <QElapsedTimer>
+#include <currentvalues.h>
 
 
 CNodeEditorScene::CNodeEditorScene(QObject *parent) : Super(parent),
@@ -421,7 +422,8 @@ CNode* CNodeEditorScene::createNewNode() const
 		auto node = dynamic_cast<CNode*>(m_nodesFactory->create());
 		Q_ASSERT(node);
 		node->copyDataFrom(m_nodesFactory);
-		return node;
+        node->setAttribute("shape", CurrentValues::instance().shape);
+        return node;
 	}
 
 	// here default
@@ -434,7 +436,7 @@ CNode* CNodeEditorScene::createNewNode(const QPointF& pos)
 {
 	auto node = createNewNode();
 	addItem(node);
-	node->setPos(pos);
+    node->setPos(pos);
 	return node;
 }
 
@@ -702,12 +704,12 @@ void CNodeEditorScene::onLeftClick(QGraphicsSceneMouseEvent* mouseEvent, QGraphi
 		if (!clickedItem)
 		{
 			onLeftDoubleClick(mouseEvent, clickedItem);
-			//setEditMode(EM_Default);
-			return;
+            //setEditMode(EM_Default);
+            return;
 		}
 	}
 
-	Super::onLeftClick(mouseEvent, clickedItem);
+    Super::onLeftClick(mouseEvent, clickedItem);
 }
 
 
@@ -718,9 +720,9 @@ void CNodeEditorScene::onLeftDoubleClick(QGraphicsSceneMouseEvent* mouseEvent, Q
 	{
 		// create a node here
 		auto node = createNewNode(getSnapped(mouseEvent->scenePos()));
-		node->setSelected(true);
+        //node->setSelected(true);
 
-		addUndoState();
+        addUndoState();
 		return;
 	}
 

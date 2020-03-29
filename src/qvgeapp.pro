@@ -38,3 +38,9 @@ commonui.file = $$PWD/commonui/commonui.pro
 SUBDIRS += qvgeapp
 qvgeapp.file = $$PWD/qvgeapp/qvgeapp.pro
 
+HEADERS += \
+    qvge/currentvalues.h
+
+SOURCES += \
+    qvge/currentvalues.cpp
+

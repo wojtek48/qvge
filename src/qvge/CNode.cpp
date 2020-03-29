@@ -8,9 +8,12 @@
 #include <QSet>
 #include <QByteArray>
 #include <QtMath>
+#include <commonui/Const.h>
 
 // test
 #include <QGraphicsDropShadowEffect>
+#include <QTextCodec>
+#include <currentvalues.h>
 
 ////////////////////////////////////////////////////////////////////
 /// \brief CNode::CNode
@@ -19,7 +22,8 @@
 CNode::CNode(QGraphicsItem* parent) : QGraphicsRectItem(parent) 
 {
 	// no selection frame
-	setItemFlag(IF_FramelessSelection);
+
+    setItemFlag(IF_FramelessSelection);
 
 	// default size
 	resize(9);
@@ -45,6 +49,7 @@ CNode::CNode(QGraphicsItem* parent) : QGraphicsRectItem(parent)
 	m_labelItem->setPen(Qt::NoPen);
 	m_labelItem->setAcceptedMouseButtons(Qt::NoButton);
 	m_labelItem->setAcceptHoverEvents(false);
+    setAttribute ("shape", CurrentValues::instance().shape);
 
 
 	// temp
@@ -90,8 +95,8 @@ void CNode::copyDataFrom(CItem* from)
 		setZValue(fromNode->zValue());
 
 		// ports
-		qDeleteAll(m_ports);
-		m_ports.clear();
+//		qDeleteAll(m_ports);
+//		m_ports.clear();
 		for (auto it = fromNode->m_ports.begin(); it != fromNode->m_ports.end(); ++it)
 		{
 			CNodePort* port = new CNodePort(this);
@@ -822,7 +827,6 @@ QVariant CNode::itemChange(QGraphicsItem::GraphicsItemChange change, const QVari
 //WPaw - rysowanie nodów
 void CNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget*)
 {
-    QByteArray shapeType = getAttribute("shape").toByteArray();
 //    bool isSelected = (option->state & QStyle::State_Selected);
 
 //    painter->setClipRect(boundingRect());
@@ -859,8 +863,33 @@ void CNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
 //        {
 //            painter->drawPolygon(m_shapeCache);
 //        }
+        QByteArray shapeType = getAttribute("shape").toByteArray();
+        QString ShapeAsString = QString::fromStdString(shapeType.toStdString());
         QRectF r = Shape::boundingRect();
-        painter->drawImage(r, QImage(":/Icons/Icons/komponenty/bankDanych.PNG"));
+        if (ShapeAsString == cBankDanych)
+          painter->drawImage(r, QImage(cIkonaBankDanych));
+        else if (ShapeAsString == cCelZasobu)
+          painter->drawImage(r, QImage(cIkonaCelZasobu));
+        else if (ShapeAsString == cProcedury)
+          painter->drawImage(r, QImage(cIkonaProcedury));
+        else if (ShapeAsString == cKompPrzeplywu)
+          painter->drawImage(r, QImage(cIkonaKompPrzeplywu));
+        else if (ShapeAsString == cKompUniwersalny)
+          painter->drawImage(r, QImage(cIkonaKompUniwersalny));
+        else if (ShapeAsString == cKompPrzetwarzania)
+          painter->drawImage(r, QImage(cIkonaKompPrzetwarzania));
+        else if (ShapeAsString == cZrodloZasobu)
+          painter->drawImage(r, QImage(cIkonaZrodloZasobu));
+        else if (ShapeAsString == cHarmonogram)
+          painter->drawImage(r, QImage(cIkonaHarmonogram));
+        else if (ShapeAsString == cZasobStatyczny)
+          painter->drawImage(r, QImage(cIkonaZasobStatyczny));
+        else if (ShapeAsString == cGeneratorZdarzen)
+          painter->drawImage(r, QImage(cIkonaGeneratorZdarzen));
+        else if (ShapeAsString == cKompWymuszPrzeplywu)
+          painter->drawImage(r, QImage(cIkonaKompWymuszPrzeplywu));
+        else if (ShapeAsString == cZegar)
+          painter->drawImage(r, QImage(CelZasobucIkonaZegar));
 //    }
 	
 ////	// hover opacity
@@ -964,7 +993,7 @@ void CNode::recalculateShape()
 
 	QRectF r = Shape::boundingRect();
 
-	m_shapeCache.clear();
+    //m_shapeCache.clear();
 	m_sizeCache = r;
 
 	QByteArray shapeType = getAttribute("shape").toByteArray();

@@ -209,7 +209,7 @@ void CNodeEditorUIController::createMenus()
     modeDefaultAction->setChecked(m_editorScene->getEditMode() == EM_Default);
     modeDefaultAction->setData(EM_Default);
 
-    modeNodesAction = editMenu->addAction(QIcon(":/Icons/Mode-AddNodes"), tr("Create Nodes"));
+    modeNodesAction = editMenu->addAction(QIcon(":/Icons/Mode-AddNodes"), tr("Add component"));
     modeNodesAction->setToolTip(tr("Adding new nodes mode"));
     modeNodesAction->setStatusTip(tr("Quickly add nodes & edges"));
     modeNodesAction->setCheckable(true);

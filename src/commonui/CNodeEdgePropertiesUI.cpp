@@ -22,6 +22,8 @@ It can be used freely, maintaining the information above.
 #include <qvge/CAttribute.h>
 #include <qvge/CEditorSceneDefines.h>
 #include <Const.h>
+#include <qvge/currentvalues.h>
+
 
 
 CNodeEdgePropertiesUI::CNodeEdgePropertiesUI(QWidget *parent) :
@@ -36,13 +38,7 @@ CNodeEdgePropertiesUI::CNodeEdgePropertiesUI(QWidget *parent) :
 
     ui->setupUi(this);
 
-    //WPaw
-//    ui->NodeShape->addAction(QIcon(":/Icons/Node-Disc"), tr("Disc"), "disc");
- //  ui->NodeShape->addAction(QIcon(":/Icons/Node-Square"), tr("Square"), "square");
-//    ui->NodeShape->addAction(QIcon(":/Icons/Node-Triangle"), tr("Triangle Up"), "triangle");
-//   ui->NodeShape->addAction(QIcon(":/Icons/Node-Diamond"), tr("Diamond"), "diamond");
-//    ui->NodeShape->addAction(QIcon(":/Icons/Node-Triangle-Down"), tr("Triangle Down"), "triangle2");
-//	ui->NodeShape->addAction(QIcon(":/Icons/Node-Hexagon"), tr("Hexagon"), "hexagon");
+    //WPaw - dodawanie ikon nodów
 
     ui->NodeProcShape->addAction(QIcon(":/Icons/Icons/komponenty/bankDanych.PNG"), cBankDanych, cBankDanych);
     ui->NodeProcShape->addAction(QIcon(":/Icons/Icons/komponenty/harmonogram.PNG"), cHarmonogram, cHarmonogram);
@@ -52,14 +48,11 @@ CNodeEdgePropertiesUI::CNodeEdgePropertiesUI(QWidget *parent) :
     ui->NodeProcShape->addAction(QIcon(":/Icons/Icons/komponenty/zegar.PNG"), cZegar, cZegar);
 
     ui->NodeFlowShape->addAction(QIcon(":/Icons/Icons/komponenty/kompUniwersalny.PNG"), cKompUniwersalny, cKompUniwersalny);
-    ui->NodeFlowShape->addAction(QIcon(":/Icons/Icons/komponenty/kompPrzetwarzenia.PNG"), cKompPrzetwarzania, cKompPrzetwarzania);
+    ui->NodeFlowShape->addAction(QIcon(":/Icons/Icons/komponenty/kompPrzetwarzania.PNG"), cKompPrzetwarzania, cKompPrzetwarzania);
     ui->NodeFlowShape->addAction(QIcon(":/Icons/Icons/komponenty/kompPrzeplywu.PNG"), cKompPrzeplywu, cKompPrzeplywu);
     ui->NodeFlowShape->addAction(QIcon(":/Icons/Icons/komponenty/kompWymuszPrzeplyw.PNG"), cKompWymuszPrzeplywu, cKompWymuszPrzeplywu);
     ui->NodeFlowShape->addAction(QIcon(":/Icons/Icons/komponenty/zrodloZasobu.PNG"), cZrodloZasobu, cZrodloZasobu);
     ui->NodeFlowShape->addAction(QIcon(":/Icons/Icons/komponenty/celZasobu.PNG"), cCelZasobu, cCelZasobu);
-
-
-
 
 
 	ui->EdgeDirection->addAction(QIcon(":/Icons/Edge-Directed"), tr("Directed (one end)"), "directed");
@@ -67,7 +60,6 @@ CNodeEdgePropertiesUI::CNodeEdgePropertiesUI(QWidget *parent) :
 	ui->EdgeDirection->addAction(QIcon(":/Icons/Edge-Undirected"), tr("None (no ends)"), "undirected");
 
     ui->EdgeColor->setColorScheme(QSint::OpenOfficeColors());
-
     ui->EdgeStyle->setUsedRange(Qt::SolidLine, Qt::DashDotDotLine);
 
     ui->EdgeAttrBox->setChecked(false);
@@ -250,6 +242,9 @@ void CNodeEdgePropertiesUI::onSelectionChanged()
 
 void CNodeEdgePropertiesUI::setNodesAttribute(const QByteArray& attrId, const QVariant& v)
 {
+    QString s = QVariant(v).toString();
+    if (attrId == "shape")
+      CurrentValues::instance().shape = s;
 	if (m_nodeFactory)
 		m_nodeFactory->setAttribute(attrId, v);
 
@@ -263,8 +258,7 @@ void CNodeEdgePropertiesUI::setNodesAttribute(const QByteArray& attrId, const QV
     //WPaw - tu ustawia się atrybut dla konkretnego noda   
 	for (auto node : nodes)
 		node->setAttribute(attrId, v);
-
-	m_scene->addUndoState();
+    m_scene->addUndoState();
 }
 
 
@@ -296,6 +290,7 @@ void CNodeEdgePropertiesUI::on_NodeColor_activated(const QColor &color)
 void CNodeEdgePropertiesUI::on_NodeFlowShape_activated(QVariant data)
 {
 	setNodesAttribute("shape", data);
+     ui->NodeFlowShape->set
 }
 
 void CNodeEdgePropertiesUI::on_NodeProcShape_activated(QVariant data)
@@ -509,3 +504,10 @@ void CNodeEdgePropertiesUI::on_LabelFontUnderline_toggled(bool on)
 }
 
 
+
+void CNodeEdgePropertiesUI::on_NodeFlowShape_windowIconChanged(const QIcon &icon)
+{
+    QMessageBox qmb;
+    qmb.setText( " duuuap");
+    qmb.exec();
+}

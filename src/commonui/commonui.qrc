@@ -48,5 +48,7 @@
         <file>Icons/komponenty/procedury.PNG</file>
         <file>Icons/komponenty/zasobStatyczny.PNG</file>
         <file>Icons/komponenty/zrodloZasobu.PNG</file>
+        <file>Icons/komponenty/zegar.PNG</file>
+        <file>Icons/komponenty/harmonogram.PNG</file>
     </qresource>
 </RCC>

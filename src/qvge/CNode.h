@@ -17,7 +17,8 @@ It can be used freely, maintaining the information above.
 #include <QGraphicsRectItem>
 #include <QSet>
 
- 
+
+extern QString CurrShape;
 class CEdge;
 
 
@@ -129,7 +130,7 @@ public:
 	virtual QRectF boundingRect() const;
 
     NodeType getNodeType() const {return m_nodeType;};
-    void setNodeType(const NodeType &nodeType){m_nodeType = nodeType;};
+    void setNodeType(const NodeType &nodeType){m_nodeType = nodeType;}
 
 protected:
     // reimp

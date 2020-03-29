@@ -10,8 +10,10 @@ else{
 TARGET = qvge
 QT += core gui widgets printsupport xml
 
-SOURCES += $$files($$PWD/*.cpp)
-HEADERS += $$files($$PWD/*.h)
+SOURCES += $$files($$PWD/*.cpp) \
+    currentvalues.cpp
+HEADERS += $$files($$PWD/*.h) \
+    currentvalues.h
 FORMS += $$files($$PWD/*.ui)
 RESOURCES += $$files($$PWD/*.qrc)
 
