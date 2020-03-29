@@ -62,8 +62,13 @@ CNodeEdgePropertiesUI::CNodeEdgePropertiesUI(QWidget *parent) :
     ui->EdgeColor->setColorScheme(QSint::OpenOfficeColors());
     ui->EdgeStyle->setUsedRange(Qt::SolidLine, Qt::DashDotDotLine);
 
-    ui->EdgeAttrBox->setChecked(false);
 
+    ui->Edge->addAction (QIcon(cIkonaKanalZdarzen), cKanalZdarzen, cKanalZdarzen);
+    ui->Edge->addAction (QIcon(cIkonaKanalZasobu), cKanalZasobu, cKanalZasobu);
+    ui->Edge->addAction (QIcon(cIkonaKanalDanych), cKanalDanych, cKanalDanych);
+    ui->Edge->addAction (QIcon(cIkonaKanalKomunikacyjny), cKanalKomunikacyjny, cKanalKomunikacyjny);
+    ui->Edge->addAction (QIcon(cIkonaProceduryWbudowane), cProceduryWbudowane, cProceduryWbudowane);
+    ui->Edge->addAction (QIcon(cIkonaDostepnoscZasobu), cDostepnoscZasobu, cDostepnoscZasobu);
 
 	// font size
 	QList<int> fontSizes = { 5,6,7,8,9,10,11,12,14,16,18,20,24,28,32,36,40,44,48,54,60,66,72,80,88,96 };
@@ -92,14 +97,11 @@ void CNodeEdgePropertiesUI::doReadSettings(QSettings& settings)
 	int pos = settings.value("nodes/splitterPosition", -1).toInt();
 
 	/*int*/ pos = settings.value("edges/splitterPosition", -1).toInt();
-	if (pos >= 0)
-		ui->EdgeAttrEditor->getEditor()->setSplitterPosition(pos);
 }
 
 
 void CNodeEdgePropertiesUI::doWriteSettings(QSettings& settings)
 {
-	settings.setValue("edges/splitterPosition", ui->EdgeAttrEditor->getEditor()->splitterPosition());
 }
 
 
@@ -290,12 +292,17 @@ void CNodeEdgePropertiesUI::on_NodeColor_activated(const QColor &color)
 void CNodeEdgePropertiesUI::on_NodeFlowShape_activated(QVariant data)
 {
 	setNodesAttribute("shape", data);
-     ui->NodeFlowShape->set
+    ui->rButFlow->setChecked(1);
+//    ui->rButFlow->clicked(true);
+//    ui->rButProc->clicked(false);
 }
 
 void CNodeEdgePropertiesUI::on_NodeProcShape_activated(QVariant data)
 {
     setNodesAttribute("shape", data);
+    ui->rButProc->setChecked(1);
+//    ui->rButFlow->clicked(false);
+//    ui->rButProc->clicked(true);
 }
 
 

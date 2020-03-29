@@ -213,20 +213,22 @@ void CEdge::drawArrow(QPainter* painter, qreal /*shift*/, const QLineF& directio
 {
 	static QPolygonF arrowHead;
 	if (arrowHead.isEmpty())
-		arrowHead << QPointF(0, 0) << QPointF(-ARROW_SIZE/2, ARROW_SIZE) << QPointF(ARROW_SIZE/2, ARROW_SIZE) << QPointF(0, 0);
+        arrowHead << QPointF(0, 0) << QPointF(-ARROW_SIZE/2, ARROW_SIZE) << QPointF(ARROW_SIZE/2, ARROW_SIZE) << QPointF(0, 0);
 
 	QPen oldPen = painter->pen();
 	painter->save();
 
 	painter->setPen(QPen(oldPen.color(), oldPen.widthF(), Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin));
-	painter->setBrush(oldPen.color());
+    painter->setBrush(oldPen.color());
+//    QBrush brush( Qt::CrossPattern );
+//    painter->setBrush(brush);
 
 	static QLineF hl(0, 0, 0, 100);
 	qreal a = direction.angleTo(hl);
 
 	painter->translate(direction.p2());
 	painter->rotate(180 + a);
-	painter->translate(QPointF(0, oldPen.widthF()));
+    painter->translate(QPointF(0,oldPen.widthF() - 10));
 	painter->drawPolygon(arrowHead);
 
 	painter->restore();

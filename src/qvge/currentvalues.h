@@ -8,6 +8,7 @@ class CurrentValues
 public:
     CurrentValues();
     QString shape;
+    QString connection;
     static CurrentValues & instance() {
         static CurrentValues * _instance = 0;
         if ( _instance == 0 ) {

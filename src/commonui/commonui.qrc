@@ -50,5 +50,11 @@
         <file>Icons/komponenty/zrodloZasobu.PNG</file>
         <file>Icons/komponenty/zegar.PNG</file>
         <file>Icons/komponenty/harmonogram.PNG</file>
+        <file>Icons/komponenty/dostepnoscZasobu.PNG</file>
+        <file>Icons/komponenty/kanalDanych.PNG</file>
+        <file>Icons/komponenty/kanalKomunikacyjny.PNG</file>
+        <file>Icons/komponenty/kanalZasobu.PNG</file>
+        <file>Icons/komponenty/kanalZdarzen.PNG</file>
+        <file>Icons/komponenty/proceduryWbudowane.PNG</file>
     </qresource>
 </RCC>

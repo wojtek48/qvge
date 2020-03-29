@@ -54,6 +54,7 @@ CEdge* CDirectEdge::clone()
 }
 
 
+//WPaw - rysowanie direct edge
 void CDirectEdge::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget* widget)
 {
 	//qDebug() << boundingRect() << option->exposedRect << option->rect;
@@ -74,15 +75,23 @@ void CDirectEdge::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 	if (isDirect)	// straight line
 	{
 		painter->setBrush(Qt::NoBrush);
-		painter->drawPath(m_shapeCachePath);
+        QPainterPathStroker pathStroker;
+        pathStroker.setWidth(5);
+        pathStroker.setCapStyle(Qt::FlatCap);
+        pathStroker.setJoinStyle(Qt::BevelJoin);
+        QPainterPath painterPathForOutlines (m_shapeCachePath);
+        painterPathForOutlines.percentAtLength(90);
+      //  painter->strokePath (m_shapeCachePath, painter->pen());
+      //  QPainterPath::simplified();
+        painter->drawPath(pathStroker.createStroke(painterPathForOutlines));
 
         // arrows
 		if (isArrow && m_itemFlags & CF_Start_Arrow)
-			drawArrow(painter, option, true, QLineF(line().p2(), line().p1()));
+            drawArrow(painter, option, true, QLineF(line().p2(), line().p1()));
 
 		if (isArrow && m_itemFlags & CF_End_Arrow)
 			drawArrow(painter, option, false, line());
-	}
+    }
 	else // curve
 	{
 		painter->setBrush(Qt::NoBrush);

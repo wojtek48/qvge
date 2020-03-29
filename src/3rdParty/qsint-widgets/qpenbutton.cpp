@@ -34,21 +34,21 @@ QPixmap QPenButton::drawPixmap(Qt::PenStyle style, int width, QSize size)
 
 void QPenButton::init()
 {
-    for (int i = Qt::NoPen; i < Qt::CustomDashLine; i++)
-    {
-		QPixmap pixmap = drawPixmap(Qt::PenStyle(i), 2, iconSize() * 2);
+//    for (int i = Qt::NoPen; i < Qt::CustomDashLine; i++)
+//    {
+//		QPixmap pixmap = drawPixmap(Qt::PenStyle(i), 2, iconSize() * 2);
 
-        switch (i)
-        {
-            case Qt::NoPen:             addAction(pixmap, tr("None"), i);			break;
-            case Qt::SolidLine:         addAction(pixmap, tr("Solid"), i);			break;
-            case Qt::DashLine:          addAction(pixmap, tr("Dashed"), i);			break;
-            case Qt::DotLine:           addAction(pixmap, tr("Dotted"), i);			break;
-            case Qt::DashDotLine:       addAction(pixmap, tr("Dash-Dot"), i);		break;
-            case Qt::DashDotDotLine:    addAction(pixmap, tr("Dash-Dot-Dot"), i);	break;
-            default:                    break;
-        }
-    }
+//        switch (i)
+//        {
+//            case Qt::NoPen:             addAction(pixmap, tr("None"), i);			break;
+//            case Qt::SolidLine:         addAction(pixmap, tr("Solid"), i);			break;
+//            case Qt::DashLine:          addAction(pixmap, tr("Dashed"), i);			break;
+//            case Qt::DotLine:           addAction(pixmap, tr("Dotted"), i);			break;
+//            case Qt::DashDotLine:       addAction(pixmap, tr("Dash-DotChu"), i);		break;
+//            case Qt::DashDotDotLine:    addAction(pixmap, tr("Dash-Dot-Dot"), i);	break;
+//            default:                    break;
+//        }
+//    }
 }
 
 

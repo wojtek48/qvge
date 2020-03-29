@@ -210,11 +210,11 @@ void CNodeEditorScene::initialize()
 
 	// common constrains
 	static CAttributeConstrainsList *edgeStyles = new CAttributeConstrainsList();
-	if (edgeStyles->ids.isEmpty()) {
-		edgeStyles->names << tr("None") << tr("Solid") << tr("Dots") << tr("Dashes") << tr("Dash-Dot") << tr("Dash-Dot-Dot");
-		edgeStyles->ids << "none" << "solid" << "dotted" << "dashed" << "dashdot" << "dashdotdot";
-		//edgeStyles->icons << QIcon(":/Icons/Edge-Directed") << QIcon(":/Icons/Edge-Mutual") << QIcon(":/Icons/Edge-Undirected");
-	}
+//	if (edgeStyles->ids.isEmpty()) {
+//		edgeStyles->names << tr("None") << tr("Solid") << tr("Dots") << tr("Dashes") << tr("Dash-Dot") << tr("Dash-Dot-Dot");
+//		edgeStyles->ids << "none" << "solid" << "dotted" << "dashed" << "dashdot" << "dashdotdot";
+//		//edgeStyles->icons << QIcon(":/Icons/Edge-Directed") << QIcon(":/Icons/Edge-Mutual") << QIcon(":/Icons/Edge-Undirected");
+//	}
 
 
 	// default node attr
@@ -415,6 +415,7 @@ void CNodeEditorScene::cancel(const QPointF& /*pos*/)
 }
 
 
+//WPaw - tworzenie nowego noda, ustawianie shape z singletona
 CNode* CNodeEditorScene::createNewNode() const
 {
 	if (m_nodesFactory)
