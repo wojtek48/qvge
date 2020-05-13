@@ -53,7 +53,7 @@ void CStartPage::createActions()
 
 	// open document actions
 	QCommandLinkButton *openFileButton = new QCommandLinkButton(
-		tr("Open..."), tr("Open existing document(s)"), this
+        tr("Open..."), tr("Open existing UPM model"), this
 	);
 
 	openFileButton->setIcon(QIcon(":/Icons/Open"));

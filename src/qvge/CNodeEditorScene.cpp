@@ -371,7 +371,7 @@ bool CNodeEditorScene::startNewConnection(const QPointF& pos)
 
     // auto select created items
     m_startNode->setSelected(false);
-    m_connection->setSelected(true);
+    m_connection->setSelected(false);
     m_endNode->setSelected(true);
 
 	return true;
@@ -438,6 +438,7 @@ CNode* CNodeEditorScene::createNewNode(const QPointF& pos)
 	auto node = createNewNode();
 	addItem(node);
     node->setPos(pos);
+    node->setSelected(false);
 	return node;
 }
 
@@ -448,7 +449,7 @@ CEdge* CNodeEditorScene::createNewConnection() const
 	{
 		auto edge = dynamic_cast<CEdge*>(m_edgesFactory->create());
 		Q_ASSERT(edge);
-		edge->copyDataFrom(m_edgesFactory);
+        //edge->copyDataFrom(m_edgesFactory);
 		return edge;
 	}
 

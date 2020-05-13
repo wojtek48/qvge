@@ -11,10 +11,9 @@ TARGET = qvgeapp
 
 win32{
         VERSION = 0.5.4.0
-	RC_ICONS = $$PWD/win32/icon.ico
-        QMAKE_TARGET_COPYRIGHT = (C) 2016-2019 Ars L. Masiuk
-	QMAKE_TARGET_DESCRIPTION = Qt Visual Graph Editor
-	QMAKE_TARGET_PRODUCT = qvge
+        RC_ICONS = $$PWD/Icons/AppIcon.ico
+        QMAKE_TARGET_DESCRIPTION = UPM Editor
+        QMAKE_TARGET_PRODUCT = UPM Editor
 }
 
 

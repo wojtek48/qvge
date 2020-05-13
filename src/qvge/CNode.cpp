@@ -827,89 +827,33 @@ QVariant CNode::itemChange(QGraphicsItem::GraphicsItemChange change, const QVari
 //WPaw - rysowanie nodów
 void CNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget*)
 {
-//    bool isSelected = (option->state & QStyle::State_Selected);
-
-//    painter->setClipRect(boundingRect());
-
-
-//    // get color (to optimize!)
-//    QColor color = getAttribute(QByteArrayLiteral("color")).value<QColor>();
-//    if (color.isValid())
-//        painter->setBrush(color);
-//    else
-//        painter->setBrush(Qt::NoBrush);
-
-//    qreal strokeSize = getAttribute(QByteArrayLiteral("stroke.size")).toDouble();
-//    strokeSize = qMax(0.1, strokeSize);
-
-//    QColor strokeColor = getAttribute(QByteArrayLiteral("stroke.color")).value<QColor>();
-
-//  int strokeStyle = CUtils::t
-//    extToPenStyle(getAttribute(QByteArrayLiteral("stroke.style")).toString(), Qt::SolidLine);
-
-//     selection background outline
-//    if (isSelected)
-//    {
-//        painter->setPen(QPen(Qt::darkCyan, strokeSize+5, Qt::SolidLine, Qt::FlatCap, Qt::RoundJoin));
-//        painter->setOpacity(0.3);
-
-//         draw shape: disc if no cache
-//        if (m_shapeCache.isEmpty())
-//        {
-//            QRectF r = Shape::boundingRect();
-//            painter->drawEllipse(r);
-//        }
-//        else
-//        {
-//            painter->drawPolygon(m_shapeCache);
-//        }
-        QByteArray shapeType = getAttribute("shape").toByteArray();
-        QString ShapeAsString = QString::fromStdString(shapeType.toStdString());
-        QRectF r = Shape::boundingRect();
-        if (ShapeAsString == cBankDanych)
-          painter->drawImage(r, QImage(cIkonaBankDanych));
-        else if (ShapeAsString == cCelZasobu)
-          painter->drawImage(r, QImage(cIkonaCelZasobu));
-        else if (ShapeAsString == cProcedury)
-          painter->drawImage(r, QImage(cIkonaProcedury));
-        else if (ShapeAsString == cKompPrzeplywu)
-          painter->drawImage(r, QImage(cIkonaKompPrzeplywu));
-        else if (ShapeAsString == cKompUniwersalny)
-          painter->drawImage(r, QImage(cIkonaKompUniwersalny));
-        else if (ShapeAsString == cKompPrzetwarzania)
-          painter->drawImage(r, QImage(cIkonaKompPrzetwarzania));
-        else if (ShapeAsString == cZrodloZasobu)
-          painter->drawImage(r, QImage(cIkonaZrodloZasobu));
-        else if (ShapeAsString == cHarmonogram)
-          painter->drawImage(r, QImage(cIkonaHarmonogram));
-        else if (ShapeAsString == cZasobStatyczny)
-          painter->drawImage(r, QImage(cIkonaZasobStatyczny));
-        else if (ShapeAsString == cGeneratorZdarzen)
-          painter->drawImage(r, QImage(cIkonaGeneratorZdarzen));
-        else if (ShapeAsString == cKompWymuszPrzeplywu)
-          painter->drawImage(r, QImage(cIkonaKompWymuszPrzeplywu));
-        else if (ShapeAsString == cZegar)
-          painter->drawImage(r, QImage(CelZasobucIkonaZegar));
-//    }
-	
-////	// hover opacity
-//    if (itemStateFlags() & IS_Drag_Accepted)
-//        painter->setOpacity(0.6);
-//    else
-//        painter->setOpacity(1.0);
-
-//    painter->setPen(QPen(strokeColor, strokeSize, (Qt::PenStyle)strokeStyle));
-
-//    // draw shape: disc if no cache
-//    if (m_shapeCache.isEmpty())
-//    {
-//        QRectF r = Shape::boundingRect();
-//        painter->drawEllipse(r);
-//    }
-//    else
-//    {
-//        painter->drawPolygon(m_shapeCache);
-//    }
+    QByteArray shapeType = getAttribute("shape").toByteArray();
+    QString ShapeAsString = QString::fromStdString(shapeType.toStdString());
+    QRectF r = Shape::boundingRect();
+    if (ShapeAsString == cBankDanych)
+      painter->drawImage(r, QImage(cIkonaBankDanych));
+    else if (ShapeAsString == cCelZasobu)
+      painter->drawImage(r, QImage(cIkonaCelZasobu));
+    else if (ShapeAsString == cProcedury)
+      painter->drawImage(r, QImage(cIkonaProcedury));
+    else if (ShapeAsString == cKompPrzeplywu)
+      painter->drawImage(r, QImage(cIkonaKompPrzeplywu));
+    else if (ShapeAsString == cKompUniwersalny)
+      painter->drawImage(r, QImage(cIkonaKompUniwersalny));
+    else if (ShapeAsString == cKompPrzetwarzania)
+      painter->drawImage(r, QImage(cIkonaKompPrzetwarzania));
+    else if (ShapeAsString == cZrodloZasobu)
+      painter->drawImage(r, QImage(cIkonaZrodloZasobu));
+    else if (ShapeAsString == cHarmonogram)
+      painter->drawImage(r, QImage(cIkonaHarmonogram));
+    else if (ShapeAsString == cZasobStatyczny)
+      painter->drawImage(r, QImage(cIkonaZasobStatyczny));
+    else if (ShapeAsString == cGeneratorZdarzen)
+      painter->drawImage(r, QImage(cIkonaGeneratorZdarzen));
+    else if (ShapeAsString == cKompWymuszPrzeplywu)
+      painter->drawImage(r, QImage(cIkonaKompWymuszPrzeplywu));
+    else if (ShapeAsString == cZegar)
+      painter->drawImage(r, QImage(CelZasobucIkonaZegar));
 }
 
 

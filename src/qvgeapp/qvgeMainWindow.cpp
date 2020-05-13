@@ -39,7 +39,7 @@ qvgeMainWindow::qvgeMainWindow()
     CDocumentFormat csv = { "CSV text file", "*.csv", { "csv" }, false, true };
 	CDocumentFormat dot = { "DOT/GraphViz", "*.dot *.gv",{ "dot", "gv" }, true, true };
 
-    CDocument graph = { tr("Graph Document"), tr("Directed or undirected graph"), "graph", true,
+    CDocument graph = { tr("UPM Model"), tr("Model compatible with UPM"), "graph", true,
                         { xgr, gexf, graphml, gml, csv, dot} };
     addDocument(graph);
 

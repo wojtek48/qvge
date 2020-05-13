@@ -367,13 +367,13 @@ void CNodeEditorUIController::createMenus()
 
 void CNodeEditorUIController::createPanels()
 {
-	// default properties
-	m_parent->createDockWindow(
-		"defaultsDock", tr("Default Properties"), Qt::LeftDockWidgetArea,
-		m_defaultsPanel = new CClassAttributesEditorUI(m_parent)
-	);
+//	// default properties
+//	m_parent->createDockWindow(
+//		"defaultsDock", tr("Default Properties"), Qt::LeftDockWidgetArea,
+//		m_defaultsPanel = new CClassAttributesEditorUI(m_parent)
+//	);
 
-	m_defaultsPanel->setScene(m_editorScene);
+//	m_defaultsPanel->setScene(m_editorScene);
 
 
     // properties
@@ -386,19 +386,13 @@ void CNodeEditorUIController::createPanels()
 
 
     // connections
-    m_parent->createDockWindow(
-        "connectionsDock", tr("Topology"), Qt::LeftDockWidgetArea,
-        m_connectionsPanel = new CCommutationTable(m_parent)
-    );
+//    m_parent->createDockWindow(
+//        "connectionsDock", tr("Topology"), Qt::LeftDockWidgetArea,
+//        m_connectionsPanel = new CCommutationTable(m_parent)
+//    );
 
-    m_connectionsPanel->setScene(m_editorScene);
+//    m_connectionsPanel->setScene(m_editorScene);
 
-
-	// quick help
-	auto *quickHelpDock = m_parent->createDockWindow(
-		"quickHelpDock", tr("Quick Help"), Qt::RightDockWidgetArea,
-		m_quickHelpPanel = new CQuickHelpUI(m_parent)
-	);
 
 
 	// update view menu with created toolbars & panels
@@ -408,9 +402,9 @@ void CNodeEditorUIController::createPanels()
 
 
 	// update help menu
-	QAction *quickHelpAction = quickHelpDock->toggleViewAction();
-	quickHelpAction->setShortcut(QKeySequence::HelpContents);
-	m_parent->getHelpMenu()->insertAction(nullptr, quickHelpAction);
+//	QAction *quickHelpAction = quickHelpDock->toggleViewAction();
+//	quickHelpAction->setShortcut(QKeySequence::HelpContents);
+//	m_parent->getHelpMenu()->insertAction(nullptr, quickHelpAction);
 }
 
 
@@ -470,7 +464,7 @@ void CNodeEditorUIController::onSceneChanged()
     auto nodes = m_editorScene->getItems<CNode>();
     auto edges = m_editorScene->getItems<CEdge>();
 
-    m_statusLabel->setText(tr("Nodes: %1 | Edges: %2").arg(nodes.size()).arg(edges.size()));
+    m_statusLabel->setText(tr("Component: %1 | Connections: %2").arg(nodes.size()).arg(edges.size()));
 
 	updateActions();
 }

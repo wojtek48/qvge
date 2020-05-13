@@ -11,6 +11,7 @@ It can be used freely, maintaining the information above.
 
 #include "CDirectEdge.h"
 #include "CNode.h"
+#include <commonui/Const.h>
 
 
 CDirectEdge::CDirectEdge(QGraphicsItem *parent): Super(parent)
@@ -64,7 +65,31 @@ void CDirectEdge::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 		return;
 
 	// called before draw 
-    setupPainter(painter, option, widget);
+   // setupPainter(painter, option, widget);
+
+    // weight
+    bool ok = false;
+    double weight = qMax(0.1, getAttribute(QByteArrayLiteral("weight")).toDouble(&ok));
+    if (!ok) weight = 1;
+    if (weight > 10) weight = 10;	// safety
+
+    // line style
+    Qt::PenStyle penStyle = (Qt::PenStyle) CUtils::textToPenStyle(getAttribute(QByteArrayLiteral("style")).toString(), Qt::SolidLine);
+
+    // color & selection
+    bool isSelected = (option->state & QStyle::State_Selected);
+    if (isSelected)
+    {
+        painter->setOpacity(0.5);
+    }
+    else
+    {
+        // get color (to optimize!)
+        QColor color = getAttribute(QByteArrayLiteral("color")).value<QColor>();
+        QPen p(color, weight, penStyle, Qt::FlatCap, Qt::MiterJoin);
+        painter->setOpacity(1.0);
+        painter->setPen(p);
+    }
 
     painter->setClipRect(boundingRect());
 
@@ -72,44 +97,77 @@ void CDirectEdge::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 	bool isArrow = (len > ARROW_SIZE * 2);
 
 	bool isDirect = (!isCircled() && (m_bendFactor == 0));
-	if (isDirect)	// straight line
-	{
-		painter->setBrush(Qt::NoBrush);
-        QPainterPathStroker pathStroker;
-        pathStroker.setWidth(5);
-        pathStroker.setCapStyle(Qt::FlatCap);
-        pathStroker.setJoinStyle(Qt::BevelJoin);
-        QPainterPath painterPathForOutlines (m_shapeCachePath);
-        painterPathForOutlines.percentAtLength(90);
-      //  painter->strokePath (m_shapeCachePath, painter->pen());
-      //  QPainterPath::simplified();
-        painter->drawPath(pathStroker.createStroke(painterPathForOutlines));
+    {
+        QString lineType;
+        lineType = this->getAttribute("style").toString();
+        if (lineType == cKanalZasobu){
+           // painter->pe
+            penStyle = Qt::SolidLine;
+            QPainterPathStroker pathStroker;
+            pathStroker.setWidth(5);
+            pathStroker.setCapStyle(Qt::FlatCap);
+            pathStroker.setJoinStyle(Qt::BevelJoin);
+            QPainterPath painterPathForOutlines (m_shapeCachePath);
+            painterPathForOutlines.percentAtLength(90);
+            QPen p(QColor(Qt::darkCyan), weight + 1.0, penStyle, Qt::FlatCap, Qt::MiterJoin);
+            painter->setPen(p);
+            painter->setPen(penStyle);
+            painter->drawPath(pathStroker.createStroke(painterPathForOutlines));
+        }
+        else{
+            if ((lineType == cKanalKomunikacyjny) || (lineType == cKanalDanych))
+              penStyle =  Qt::SolidLine;
+            else if ((lineType == cKanalZdarzen) || (lineType == cDostepnoscZasobu))
+              penStyle = Qt::DashLine;
+            else if (lineType == cProceduryWbudowane)
+              penStyle = Qt::DotLine;
+            QPen p(QColor(Qt::darkCyan), weight + 1.0, penStyle, Qt::FlatCap, Qt::MiterJoin);
+            painter->setPen(p);
+            painter->setPen(penStyle);
+            painter->setBrush(Qt::NoBrush);
+            painter->drawPath(m_shapeCachePath);
+        }
 
         // arrows
-		if (isArrow && m_itemFlags & CF_Start_Arrow)
-            drawArrow(painter, option, true, QLineF(line().p2(), line().p1()));
-
-		if (isArrow && m_itemFlags & CF_End_Arrow)
-			drawArrow(painter, option, false, line());
-    }
-	else // curve
-	{
-		painter->setBrush(Qt::NoBrush);
-		painter->drawPath(m_shapeCachePath);
-
-		// arrows
-        if (isArrow && m_itemFlags & CF_Start_Arrow)
+        if ((lineType == cKanalKomunikacyjny) || (lineType == cKanalZasobu)|| (lineType == cKanalZdarzen))
         {
-            QLineF arrowLine = calculateArrowLine(m_shapeCachePath, true, QLineF(m_controlPos, line().p1()));
-            drawArrow(painter, option, true, arrowLine);
-        }
+            if (isArrow && m_itemFlags & CF_Start_Arrow)
+                drawArrow(painter, option, true, QLineF(line().p2(), line().p1()));
 
-        if (isArrow && m_itemFlags & CF_End_Arrow)
-        {
-            QLineF arrowLine = calculateArrowLine(m_shapeCachePath, false, QLineF(m_controlPos, line().p2()));
-            drawArrow(painter, option, false, arrowLine);
+            if (isArrow && m_itemFlags & CF_End_Arrow)
+                drawArrow(painter, option, false, line());
         }
     }
+
+//	if (isDirect)	// straight line
+//	{
+//		painter->setBrush(Qt::NoBrush);
+
+//        // arrows
+//		if (isArrow && m_itemFlags & CF_Start_Arrow)
+//            drawArrow(painter, option, true, QLineF(line().p2(), line().p1()));
+
+//		if (isArrow && m_itemFlags & CF_End_Arrow)
+//			drawArrow(painter, option, false, line());
+//    }
+//	else // curve
+//	{
+//		painter->setBrush(Qt::NoBrush);
+//		painter->drawPath(m_shapeCachePath);
+
+//		// arrows
+//        if (isArrow && m_itemFlags & CF_Start_Arrow)
+//        {
+//            QLineF arrowLine = calculateArrowLine(m_shapeCachePath, true, QLineF(m_controlPos, line().p1()));
+//            drawArrow(painter, option, true, arrowLine);
+//        }
+
+//        if (isArrow && m_itemFlags & CF_End_Arrow)
+//        {
+//            QLineF arrowLine = calculateArrowLine(m_shapeCachePath, false, QLineF(m_controlPos, line().p2()));
+//            drawArrow(painter, option, false, arrowLine);
+//        }
+
 }
 
 

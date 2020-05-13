@@ -18,6 +18,7 @@ It can be used freely, maintaining the information above.
 
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include <currentvalues.h>
 
 
 CEdge::CEdge(QGraphicsItem *parent): Shape(parent)
@@ -47,6 +48,7 @@ CEdge::CEdge(QGraphicsItem *parent): Shape(parent)
 	m_labelItem->setCacheMode(DeviceCoordinateCache);
 	m_labelItem->setPen(Qt::NoPen);
 	m_labelItem->setAcceptedMouseButtons(Qt::NoButton);
+    setAttribute(QByteArrayLiteral("style"), CurrentValues::instance().connection);
 }
 
 
@@ -223,12 +225,12 @@ void CEdge::drawArrow(QPainter* painter, qreal /*shift*/, const QLineF& directio
 //    QBrush brush( Qt::CrossPattern );
 //    painter->setBrush(brush);
 
-	static QLineF hl(0, 0, 0, 100);
+    static QLineF hl(0, 0, 0, 100);
 	qreal a = direction.angleTo(hl);
 
 	painter->translate(direction.p2());
 	painter->rotate(180 + a);
-    painter->translate(QPointF(0,oldPen.widthF() - 10));
+    painter->translate(QPointF(0,oldPen.widthF() - 2));
 	painter->drawPolygon(arrowHead);
 
 	painter->restore();

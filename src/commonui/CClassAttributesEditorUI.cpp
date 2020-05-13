@@ -48,29 +48,29 @@ CClassAttributesEditorUI::~CClassAttributesEditorUI()
 
 void CClassAttributesEditorUI::doReadSettings(QSettings& settings)
 {
-	int pos = settings.value("splitterPosition", -1).toInt();
-	if (pos >= 0)
-		ui->Editor->setSplitterPosition(pos);
+//	int pos = settings.value("splitterPosition", -1).toInt();
+//	if (pos >= 0)
+//		ui->Editor->setSplitterPosition(pos);
 }
 
 
 void CClassAttributesEditorUI::doWriteSettings(QSettings& settings)
 {
-	settings.setValue("splitterPosition", ui->Editor->splitterPosition());
+//	settings.setValue("splitterPosition", ui->Editor->splitterPosition());
 }
 
 
 void CClassAttributesEditorUI::setScene(CEditorScene* scene)
 {
-    if (m_scene)
-        onSceneDetached(m_scene);
+//    if (m_scene)
+//        onSceneDetached(m_scene);
 
-    m_scene = scene;
+//    m_scene = scene;
 
-    setEnabled(m_scene);
+//    setEnabled(m_scene);
 
-    if (m_scene)
-        onSceneAttached(m_scene);
+//    if (m_scene)
+//        onSceneAttached(m_scene);
 }
 
 

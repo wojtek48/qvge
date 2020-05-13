@@ -55,12 +55,12 @@ CNodeEdgePropertiesUI::CNodeEdgePropertiesUI(QWidget *parent) :
     ui->NodeFlowShape->addAction(QIcon(":/Icons/Icons/komponenty/celZasobu.PNG"), cCelZasobu, cCelZasobu);
 
 
-	ui->EdgeDirection->addAction(QIcon(":/Icons/Edge-Directed"), tr("Directed (one end)"), "directed");
-	ui->EdgeDirection->addAction(QIcon(":/Icons/Edge-Mutual"), tr("Mutual (both ends)"), "mutual");
-	ui->EdgeDirection->addAction(QIcon(":/Icons/Edge-Undirected"), tr("None (no ends)"), "undirected");
+//	ui->EdgeDirection->addAction(QIcon(":/Icons/Edge-Directed"), tr("Directed (one end)"), "directed");
+//	ui->EdgeDirection->addAction(QIcon(":/Icons/Edge-Mutual"), tr("Mutual (both ends)"), "mutual");
+//	ui->EdgeDirection->addAction(QIcon(":/Icons/Edge-Undirected"), tr("None (no ends)"), "undirected");
 
-    ui->EdgeColor->setColorScheme(QSint::OpenOfficeColors());
-    ui->EdgeStyle->setUsedRange(Qt::SolidLine, Qt::DashDotDotLine);
+//    ui->EdgeColor->setColorScheme(QSint::OpenOfficeColors());
+    //ui->EdgeStyle->setUsedRange(Qt::SolidLine, Qt::DashDotDotLine);
 
 
     ui->Edge->addAction (QIcon(cIkonaKanalZdarzen), cKanalZdarzen, cKanalZdarzen);
@@ -82,6 +82,8 @@ CNodeEdgePropertiesUI::CNodeEdgePropertiesUI(QWidget *parent) :
 
     // update status & tooltips etc.
     ui->retranslateUi(this);
+    
+
 }
 
 
@@ -137,10 +139,10 @@ void CNodeEdgePropertiesUI::updateFromScene(CEditorScene* scene)
 
 
 	auto edgeAttrs = scene->getClassAttributes("edge", false);
-	ui->EdgeColor->setColor(edgeAttrs["color"].defaultValue.value<QColor>());
-	ui->EdgeWeight->setValue(edgeAttrs["weight"].defaultValue.toDouble());
-	ui->EdgeStyle->setPenStyle(CUtils::textToPenStyle(edgeAttrs["style"].defaultValue.toString()));
-	ui->EdgeDirection->selectAction(edgeAttrs["direction"].defaultValue);
+//	ui->EdgeColor->setColor(edgeAttrs["color"].defaultValue.value<QColor>());
+//	ui->EdgeWeight->setValue(edgeAttrs["weight"].defaultValue.toDouble());
+//	ui->EdgeStyle->setPenStyle(CUtils::textToPenStyle(edgeAttrs["style"].defaultValue.toString()));
+    //ui->EdgeDirection->selectAction(edgeAttrs["direction"].defaultValue);
 
 	QFont f(edgeAttrs["label.font"].defaultValue.value<QFont>());
 	ui->LabelFont->setCurrentFont(f);
@@ -190,7 +192,7 @@ void CNodeEdgePropertiesUI::onSelectionChanged()
 
 
     // nodes
-    ui->NodesBox->setTitle(tr("Nodes (%1)").arg(nodes.count()));
+    ui->NodesBox->setTitle(tr("Selected components (%1)").arg(nodes.count()));
 
     if (nodes.count())
     {
@@ -205,16 +207,16 @@ void CNodeEdgePropertiesUI::onSelectionChanged()
 
     QList<CItem*> nodeItems;
     // edges
-    ui->EdgesBox->setTitle(tr("Edges (%1)").arg(edges.count()));
+    ui->EdgesBox->setTitle(tr("Selected connections (%1)").arg(edges.count()));
 
     if (edges.count())
     {
         auto edge = edges.first();
 
-        ui->EdgeColor->setColor(edge->getAttribute("color").value<QColor>());
-        ui->EdgeWeight->setValue(edge->getAttribute("weight").toDouble());
-		ui->EdgeStyle->setPenStyle(CUtils::textToPenStyle(edge->getAttribute("style").toString()));
-		ui->EdgeDirection->selectAction(edge->getAttribute("direction"));
+ //       ui->EdgeColor->setColor(edge->getAttribute("color").value<QColor>());
+//        ui->EdgeWeight->setValue(edge->getAttribute("weight").toDouble());
+//		ui->EdgeStyle->setPenStyle(CUtils::textToPenStyle(edge->getAttribute("style").toString()));
+//		ui->EdgeDirection->selectAction(edge->getAttribute("direction"));
     }
 
     QList<CItem*> edgeItems;
@@ -355,6 +357,12 @@ void CNodeEdgePropertiesUI::on_EdgeStyle_activated(QVariant data)
 	setEdgesAttribute("style", style);
 }
 
+void CNodeEdgePropertiesUI::on_Edge_activated(QVariant data)
+{
+    QString s = QVariant(data).toString();
+    CurrentValues::instance().connection = s;
+    setEdgesAttribute("style", data);
+}
 
 void CNodeEdgePropertiesUI::on_EdgeDirection_activated(QVariant data)
 {

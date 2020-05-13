@@ -102,7 +102,7 @@ void CMainWindow::init(const QStringList& args)
 
 	createWindowsMenu();
 
-    createHelpMenu();
+ //   createHelpMenu();
 
     readSettings();
 

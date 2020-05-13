@@ -1749,7 +1749,7 @@ bool CEditorScene::onClickDrag(QGraphicsSceneMouseEvent *mouseEvent, const QPoin
 		return true;
 	}
 
-	// nothing to do
+    deselectAll();
 	return false;
 }
 
